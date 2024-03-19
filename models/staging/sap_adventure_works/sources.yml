@@ -1,0 +1,18 @@
+sources:
+  - name: sap_adw
+    description: Fonte do ERP da Adventur Works
+    database: equatorial
+    schema: sap_adw
+    tables:
+      - name: person
+        columns:
+          - name: BUSINESSENTITYID
+            tests:
+              - unique
+              - not null
+      - name: customer
+        columns:
+          - name: CUSTOMERID
+            tests:
+              - unique
+              - not null
