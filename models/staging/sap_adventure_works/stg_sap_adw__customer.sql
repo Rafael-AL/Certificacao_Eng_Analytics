@@ -10,7 +10,7 @@ with customer_adw as (
     from {{ source('sap_adw', 'customer') }}
 )
 
-/*2º resultado final, Dcustomer_adw*/
+/*2º resultado final, customer_adw*/
 select 
     *
 from customer_adw
