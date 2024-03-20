@@ -9,10 +9,24 @@ sources:
           - name: BUSINESSENTITYID
             tests:
               - unique
-              - not null
+              - not_null
+                     
       - name: customer
         columns:
           - name: CUSTOMERID
             tests:
               - unique
-              - not null
+              - not_null
+
+      - name: salesreason
+        columns:
+          - name: SALESREASONID
+            tests:
+              - unique
+              - not_null
+              
+      - name: salesorderheadersalesreason
+        columns:
+          - name: SALESORDERID
+            tests:
+              - not_null
