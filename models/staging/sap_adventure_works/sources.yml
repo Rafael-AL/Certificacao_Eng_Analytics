@@ -44,3 +44,27 @@ sources:
             tests:
               - unique
               - not_null  
+
+      - name: stateprovince
+        columns:
+          - name: STATEPROVINCEID
+            tests:
+              - unique
+              - not_null  
+
+      - name: countryregion
+        columns:
+          - name: COUNTRYREGIONCODE
+            tests:
+              - unique
+              - not_null  
+
+      - name: address
+        columns:
+          - name: CITY
+            tests:  
+              - not_null
+          - name: ADDRESSID
+            tests:
+              - unique
+              - not_null 
