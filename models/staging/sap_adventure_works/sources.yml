@@ -30,3 +30,17 @@ sources:
           - name: SALESORDERID
             tests:
               - not_null
+
+      - name: employee
+        columns:
+          - name: BUSINESSENTITYID
+            tests:
+              - unique
+              - not_null   
+
+      - name: salesperson
+        columns:
+          - name: BUSINESSENTITYID
+            tests:
+              - unique
+              - not_null  

@@ -10,7 +10,7 @@ with stg_person as (
         ULTIMO_NOME,
         SUFIXO_NOME,
         /*junção dos nomes de pessoas, coluna NOME_COMPLETO*/
-        CONCAT_WS(' ', COALESCE(PRIMEIRO_NOME, ''), COALESCE(MEDIO_NOME, ''), COALESCE(ULTIMO_NOME, ''), COALESCE(SUFIXO_NOME, '')) AS NOME_COMPLETO
+        CONCAT_WS(' ', COALESCE(PRIMEIRO_NOME, ''), COALESCE(MEDIO_NOME, ''), COALESCE(ULTIMO_NOME, ''), COALESCE(SUFIXO_NOME, '')) AS NOME_COMPLETO,
         /*verificação do tipo de pessoa, coluna NOME_COMPLETO*/
         CASE 
             WHEN TIPO_PESSOA = 'SC' THEN 'Contato da Loja'
@@ -53,6 +53,7 @@ Join_stgperson_stgcustomer as (
         A.TIPO_PESSOA_DESCRICAO
     from stg_person A
     left join stg_customer B on A.PK_ID_REG_PESSOA = B.FK_ID_REG_PESSOA
+    where B.PK_ID_CLIENTE is not null --filtragem, removendo clientes sem pedidos registrados, que não realizaram compras
 )
 
 /*4º resultado final, DIM_CLIENTES*/
