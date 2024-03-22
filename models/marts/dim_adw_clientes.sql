@@ -1,4 +1,4 @@
-/*1º CET, stg_person, nomes dos clientes da Adventure Works, construção da DIM_CLIENTE*/
+/*1º CET, stg_person, nomes dos pessoas em geral da Adventure Works, construção da DIM_CLIENTE*/
 
 with stg_person as (
     select 
@@ -9,9 +9,19 @@ with stg_person as (
         MEDIO_NOME,
         ULTIMO_NOME,
         SUFIXO_NOME,
-        /*junção dos nomes de cliente, coluna NOME_COMPLETO*/
-        CONCAT_WS(' ', COALESCE(PRIMEIRO_NOME, ''), COALESCE(MEDIO_NOME, ''), COALESCE(ULTIMO_NOME, ''), COALESCE(SUFIXO_NOME, '')) AS NOME_COMPLETO
-    
+        /*junção dos nomes de pessoas, coluna NOME_COMPLETO*/
+        CONCAT_WS(' ', COALESCE(PRIMEIRO_NOME, ''), COALESCE(MEDIO_NOME, ''), COALESCE(ULTIMO_NOME, ''), COALESCE(SUFIXO_NOME, '')) AS NOME_COMPLETO,
+        /*verificação do tipo de pessoa, coluna NOME_COMPLETO*/
+        CASE 
+            WHEN TIPO_PESSOA = 'SC' THEN 'Contato da Loja'
+            WHEN TIPO_PESSOA = 'IN' THEN 'Pessoa Física (Varejo)'
+            WHEN TIPO_PESSOA = 'SP' THEN 'Vendedor'
+            WHEN TIPO_PESSOA = 'EM' THEN 'Funcionário (não vendas)'
+            WHEN TIPO_PESSOA = 'VC' THEN 'Fornecedor'
+            WHEN TIPO_PESSOA = 'GC' THEN 'Contato Geral (outros)'
+            ELSE 'Contato Geral (outros)'
+        END AS TIPO_PESSOA_DESCRICAO
+
     from {{ ref('stg_sap_adw__person') }}
 ),
 
@@ -39,9 +49,11 @@ Join_stgperson_stgcustomer as (
         A.MEDIO_NOME,
         A.ULTIMO_NOME,
         A.SUFIXO_NOME,
-        A.NOME_COMPLETO 
+        A.NOME_COMPLETO,
+        A.TIPO_PESSOA_DESCRICAO
     from stg_person A
     left join stg_customer B on A.PK_ID_REG_PESSOA = B.FK_ID_REG_PESSOA
+    where B.PK_ID_CLIENTE is not null --filtragem, removendo clientes sem pedidos registrados, que não realizaram compras
 )
 
 /*4º resultado final, DIM_CLIENTES*/
