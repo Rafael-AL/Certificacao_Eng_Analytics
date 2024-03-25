@@ -68,3 +68,44 @@ sources:
             tests:
               - unique
               - not_null 
+
+      - name: creditcard
+        columns:
+          - name: CREDITCARDID
+            tests:
+              - unique
+              - not_null 
+
+      - name: salesorderheader
+        columns:
+          - name: SALESORDERID
+            tests:
+              - unique
+              - not_null 
+
+      - name: salesorderdetail
+        columns:
+          - name: SALESORDERID
+            tests:  
+              - not_null
+          - name: SALESORDERDETAILID
+            tests:
+              - unique
+              - not_null               
+
+      - name: productcategory
+        columns:
+          - name: PRODUCTCATEGORYID
+            tests:
+              - unique
+              - not_null 
+
+      - name: productsubcategory
+        columns:
+          - name: PRODUCTCATEGORYID
+            tests:  
+              - not_null
+          - name: PRODUCTSUBCATEGORYID
+            tests:
+              - unique
+              - not_null 
