@@ -10,7 +10,7 @@ with salesorderdetail_adw as (
         ORDERQTY AS QTD_PEDIDO,
         SPECIALOFFERID AS FK_ID_OFERTA_ESP,
         UNITPRICE AS PRECO_UNIT,
-        UNITPRICEDISCOUNT AS DESCONTO_UNIT,
+        UNITPRICEDISCOUNT AS DESCONTO_UNIT
 
     from {{ source('sap_adw', 'salesorderdetail') }}
 )

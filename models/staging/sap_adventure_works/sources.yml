@@ -109,3 +109,10 @@ sources:
             tests:
               - unique
               - not_null 
+
+      - name: product
+        columns:
+          - name: PRODUCTID
+            tests:
+              - unique
+              - not_null 
